@@ -1,0 +1,28 @@
+namespace SupportOpsApi.Endpoints.Contracts;
+
+public record WorkItemDto(
+    Guid Id,
+    string? ExternalId,
+    string Title,
+    string Type,
+    string Status,
+    string Priority,
+    string Assignee,
+    string Source,
+    Guid? BugServiceId,
+    string? BugServiceName,
+    Guid? BugEndpointId,
+    string? BugEndpointPath,
+    string? BugEndpointMethod,
+    string? ResolutionNotes,
+    int? SlaMinutes,
+    DateTimeOffset? SlaTargetAt,
+    string? GithubRepo,
+    string? GithubBranch,
+    string? GithubCommit,
+    string? GithubPullRequest,
+    IEnumerable<string> Tags,
+    IEnumerable<WorkItemRelation> RelatedItems,
+    IEnumerable<WorkItemCommentDto> Comments,
+    IEnumerable<WorkItemAttachmentDto> Attachments,
+    IEnumerable<WorkItemStatusChangeDto> StatusHistory);

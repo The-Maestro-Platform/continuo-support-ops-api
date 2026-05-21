@@ -1,0 +1,27 @@
+### Incidents
+GET http://localhost:5090/support/incidents
+
+### Alerts
+GET http://localhost:5090/support/alerts
+
+### Knowledge base
+GET http://localhost:5090/support/knowledge
+
+### Update incident status
+PUT http://localhost:5090/support/incidents/{{incidentId}}
+Content-Type: application/json
+
+{
+  "status": "Resolved",
+  "owner": "Ayşe"
+}
+
+### Add incident action
+POST http://localhost:5090/support/incidents/{{incidentId}}/actions
+Content-Type: application/json
+
+{
+  "actionType": "note",
+  "actor": "console",
+  "notes": "Mitigation steps confirmed"
+}
