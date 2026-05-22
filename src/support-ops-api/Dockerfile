@@ -1,18 +1,16 @@
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["services/support-ops-api/support-ops-api.csproj", "services/support-ops-api/"]
-RUN dotnet restore "services/support-ops-api/support-ops-api.csproj"
+# Copy the full repo context (includes src/ + deps/continuo-* submodules)
 COPY . ./
-WORKDIR "/src/services/support-ops-api"
-RUN dotnet publish "support-ops-api.csproj" -c Release -o /app/publish
+RUN dotnet publish src/support-ops-api/support-ops-api.csproj -c Release -o /app/publish --nologo
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:80
 ENTRYPOINT ["dotnet", "support-ops-api.dll"]
